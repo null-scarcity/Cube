@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>人格博弈测试 | 魔方训练营</title>
+    <title>魔方训练营，测测你是谁</title>
     <style>
-        /* 基础变量与全局设定：简约杂志风 */
         :root {
             --bg-color: #f4f1eb; 
             --card-bg: #ffffff;
             --text-main: #333333;
             --text-light: #777777;
             --primary-blue: #1A2B4C; 
-            --accent-orange: #1b5c8a; 
+            --accent-orange: #134061; 
         }
         
         body {
@@ -21,7 +20,7 @@
             display: flex; justify-content: center; align-items: center; min-height: 100vh;
         }
 
-        /* 外围扩大约 1cm（宽度提升，Padding 增加），整体版面更具呼吸感 */
+
         .container {
             width: 100%; max-width: 460px; margin: 25px; padding: 45px 35px; box-sizing: border-box;
             background: var(--card-bg); border-radius: 14px;
@@ -34,27 +33,64 @@
         h1 { color: var(--primary-blue); font-size: 26px; font-weight: 800; letter-spacing: 1px; margin-bottom: 12px; }
         p { line-height: 1.7; color: var(--text-light); font-size: 14px; margin-bottom: 35px; }
 
-        /* --- 首页图文 & 魔方 --- */
+ 
         .cover-wrapper {
-            position: relative; width: 100%; border-radius: 8px; overflow: hidden; margin-bottom: 25px;
+            position: relative; 
+            width: 100%; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            margin-bottom: 25px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .cover-img { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/3; }
+        
+        .cover-img { 
+            width: 100%; 
+            display: block; 
+            object-fit: cover; 
+            aspect-ratio: 4/3; 
+        }
         
         .cube-wrapper { 
-            position: absolute; top: 50%; left: 50%; width: 50px; height: 50px; 
-            margin-top: 60px; margin-left: -25px; perspective: 1000px; z-index: 10;
+            
+            position: absolute; 
+            z-index: 10;
+            perspective: 1000px; 
+            
+            
+            width: 36px; 
+            height: 36px; 
+            
+            
+            transform: translateY(60px); 
         }
+        
         .cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: spin 8s infinite linear; }
+        
         .face { 
-            position: absolute; width: 50px; height: 50px; border: 2px solid rgba(255, 255, 255, 0.9); 
-            background: rgba(255, 255, 255, 0.464); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+            position: absolute; 
+            
+            width: 36px; 
+            height: 36px; 
+            border: 1.5px solid rgba(255, 255, 255, 0.9); 
+            background: rgba(255, 255, 255, 0.464); 
+            backdrop-filter: blur(2px); 
+            -webkit-backdrop-filter: blur(2px);
         }
-        .front  { transform: translateZ(25px); } .back   { transform: rotateY(180deg) translateZ(25px); }
-        .right  { transform: rotateY(90deg) translateZ(25px); } .left   { transform: rotateY(-90deg) translateZ(25px); }
-        .top    { transform: rotateX(90deg) translateZ(25px); } .bottom { transform: rotateX(-90deg) translateZ(25px); }
+        
+        
+        .front  { transform: translateZ(18px); } 
+        .back   { transform: rotateY(180deg) translateZ(18px); }
+        .right  { transform: rotateY(90deg) translateZ(18px); } 
+        .left   { transform: rotateY(-90deg) translateZ(18px); }
+        .top    { transform: rotateX(90deg) translateZ(18px); } 
+        .bottom { transform: rotateX(-90deg) translateZ(18px); }
 
-        /* --- 按钮 & 进度条 --- */
+        
         .btn, .option-btn {
             display: block; width: 100%; padding: 16px 22px; margin: 14px 0;
             background: #f8f9fa; color: var(--text-main); border: 1px solid #e0e0e0; border-radius: 8px;
@@ -65,7 +101,7 @@
         .btn-primary { background: var(--primary-blue); color: #fff; font-weight: bold; border: none; text-align: center; font-size: 15px; }
         .btn-primary:hover { background: #111d33; box-shadow: 0 6px 20px rgba(26, 43, 76, 0.3); }
         
-        /* 返回上一题轻量美化 */
+        
         .btn-back {
             display: inline-flex; align-items: center; justify-content: center; gap: 5px;
             width: auto; margin: 25px auto 0 auto; padding: 8px 20px;
@@ -77,14 +113,14 @@
         .progress-bar { width: 100%; height: 6px; background: #eee; border-radius: 3px; margin-bottom: 25px; overflow: hidden; }
         .progress { height: 100%; background: var(--accent-orange); width: 0%; border-radius: 3px; transition: width 0.4s ease; }
         
-        /* 答题顶栏信息 */
+        
         .quiz-meta {
             display: flex; justify-content: space-between; align-items: center;
             font-size: 13px; margin-bottom: 18px; font-weight: bold;
         }
         .quiz-count { color: var(--accent-orange); letter-spacing: 0.5px; }
         
-        /* 不同游戏关卡的彩色通用标签样式 */
+        
         .quiz-stage { 
             padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold;
             transition: all 0.3s ease;
@@ -107,7 +143,7 @@
         
         .result-desc { font-size: 14px; text-align: justify; line-height: 1.8; color: var(--text-main); background: #fafafa; padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent-orange); margin-bottom: 25px; }
 
-        /* --- 社交羁绊区域 --- */
+        
         .social-bonds { display: flex; gap: 12px; justify-content: space-between; margin-top: 10px; }
         .bond-card { flex: 1; background: #fdfdfb; border: 1px solid #e6e1da; border-radius: 8px; padding: 12px; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .bond-tag { font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; }
@@ -136,7 +172,7 @@
             </div>
         </div>
         <h1>魔方训练营</h1>
-        <p>在充满背叛、结盟与算计的实境博弈中<br>测出你灵魂深处的玩家原型</p>
+        <p>从地下城禁闭逃杀，到游戏策划各展其才<br>在充满背叛、结盟与算计的实境博弈中<br>如果你身处其中，将会如何操作？</p>
         <button class="btn btn-primary" onclick="startGame()">开始测试</button>
     </div>
 
@@ -180,13 +216,13 @@
             <div style="font-size: 13px; color: var(--text-light); margin: 25px 0 10px 0; letter-spacing: 1px; text-align: left; font-weight: bold;">- 与你相关 -</div>
             <div class="social-bonds">
                 <div class="bond-card">
-                    <span class="bond-tag tag-mirror">你的镜像</span>
+                    <span class="bond-tag tag-mirror">你的同面</span>
                     <img id="mirror-avatar" src="" class="bond-avatar" alt="镜像">
                     <div id="mirror-name" class="bond-name">-</div>
                     <div id="mirror-rate" class="bond-match">-</div>
                 </div>
                 <div class="bond-card">
-                    <span class="bond-tag tag-partner">超6的搭子</span>
+                    <span class="bond-tag tag-partner">你的邻面</span>
                     <img id="partner-avatar" src="" class="bond-avatar" alt="搭子">
                     <div id="partner-name" class="bond-name">-</div>
                     <div id="partner-rate" class="bond-match">-</div>
@@ -194,7 +230,31 @@
             </div>
         </div>
         <button class="btn btn-primary" style="margin-top:35px;" onclick="location.reload()">重新测试</button>
+        <div style="margin-top: 30px; border-top: 1px dashed #e6e1da; padding-top: 20px;">
+            <p style="font-size: 14px; font-weight: bold; color: #333; margin-bottom: 5px; text-align: left;">📬 意见与反馈</p>
+            <p style="font-size: 12px; color: #8c8275; margin-bottom: 12px; text-align: left;">测试不准，功能不完善，有更好的题目想加进测试？欢迎来提出建议！（有题目提出可以附上署名哦，我会听取并@感谢你的~）</p>
+    
+            <form action="https://formbold.com/s/9xm1j" method="POST" id="feedback-form">
+        
+                <textarea 
+                    name="feedback_content" 
+                    rows="3" 
+                    placeholder="输入你的建议..." 
+                    required
+                    style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #e6e1da; border-radius: 6px; font-size: 13px; background: #faf9f6; color: #333; resize: none; margin-bottom: 10px; outline: none;"
+                ></textarea>
+        
+                <button 
+                    type="submit" 
+                    class="btn" 
+                    style="width: 100%; font-size: 13px; background: transparent; color: var(--accent-orange, #e67e22); border: 1px solid var(--accent-orange, #e67e22); cursor: pointer;"
+                >
+                    ✦ 发送
+                </button>
+            </form>
+        </div>
     </div>
+    
 </div>
 
 <script>
@@ -203,7 +263,7 @@
     let currentQuestionIndex = 0;
     let scoreHistory = [];
 
-    // 7种关卡专属标签色调字典（杂志质感色系）
+    
     const stageColors = {
         "禁闭逃杀": { bg: "#eef2f7", text: "#1b5c8a" },
         "妙手之争": { bg: "#fdf2f2", text: "#a94442" },
@@ -271,7 +331,7 @@
         ]},
         { stage: "星际之战", text: "行动阶段，你还剩最后一格没走，这时场上与你同分的玩家告诉你这里有TA埋的雷，你会：", options: [
             { text: "A. 相信TA，不走了。", scores: { Trust: 1.0, Risk: -1.0 } },
-            { text: "B. 不信，哪有这么巧的事，继续走。", scores: { Trust: -1.0, Risk: 1.0 } },
+            { text: "B. 不信，哪有这么巧的事，继续走。", scores: { Trust: -1.0, Risk: 1.0,Value:1.0 } },
             { text: "C. 不信TA，但是保险起见，还是不走了。", scores: { Trust: -1.0, Risk: -1.0 } }
         ]},
         // 竞宝风云
@@ -308,167 +368,168 @@
             { text: "C. 没有明确的偏向。", scores: {} }
         ]},
         { stage: "收官", text: "你更喜欢个人战还是团队战：", options: [
-            { text: "A. 纯粹的团队战", scores: { Social: 1.5 } },
-            { text: "B. 纯粹的个人战。", scores: { Social: -1.5 } },
+            { text: "A. 纯粹的团队战", scores: { Social: 2.0 } },
+            { text: "B. 纯粹的个人战。", scores: { Social: -2.0 } },
             { text: "C. 有阵营划分的个人战。", scores: { Social: -1.0 } }
         ]}
     ];
 
-    // 选手星盘归化配置
+    
     const characters = [
         {
             name: "李佑川", title: "游戏操盘手", 
             avatar: "./images/lyc_head.jpg", image: "./images/lyc_body.jpg",
             scores: { Trust: 1.00, Emotion: 9.00, Morality: 1.19, Decision: 3.84, Social: 1.00, Risk: 9.00, Info: 7.31, Value: 9.00 },
-            desc: "理性与冷静，真情与衷心，你是贯彻游戏精神的“大魔王”，情感与意志的川流，始终不息。",
+            desc: "理性与冷静，真情与衷心，你是贯彻游戏精神的“大魔王”，搅弄风云、扭转乾坤，情感与意志的川流，始终不息。",
             mirror: { name: "庄宇光", avatar: "./images/zyg_head.png" },
             partner: { name: "庄宇光", avatar: "./images/zyg_head.png" }
         },
         {
             name: "庄宇光", title: "纵横野心家", 
+            radius_factor: 0.9,
             avatar: "./images/zyg_head.png", image: "./images/zyg_body.jpg",
             scores: { Trust: 1.84, Emotion: 8.54, Morality: 1.92, Decision: 2.54, Social: 4.29, Risk: 9.00, Info: 9.00, Value: 9.00 },
-            desc: "...",
+            desc: "“你相信‘光’吗？” 沉稳布局、谋略在心，犀利洞察、敢想敢冲，厚积薄发的沉淀，掌局博弈的从容，你是魔方之光，闪耀四方。",
             mirror: { name: "李佑川", avatar: "./images/lyc_head.jpg" },
             partner: { name: "林可雯", avatar: "./images/lkw_head.png" }
         },
         {
-            name: "刘依悦", title: "未命名头衔", 
+            name: "刘依悦", title: "首席浪漫官", 
             avatar: "./images/lyy_head.png", image: "./images/lyy_body.jpg",
             radius_factor: 1.3,
             scores: { Trust: 9.00, Emotion: 8.54, Morality: 9.00, Decision: 1.78, Social: 6.06, Risk: 1.22, Info: 1.00, Value: 3.05 },
-            desc: "...",
+            desc: "在波谲云诡的赛场中，包容、理解与坚韧，带来了最和煦的春风。你心柔软，却最有力量，也最恒常，依悦出手，套路全走。",
             mirror: { name: "朱宸皓", avatar: "./images/zch_head.png" },
             partner: { name: "郑方一", avatar: "./images/zfy_head.png" }
         },
         {
-            name: "蔡锦昕", title: "未命名头衔", 
+            name: "蔡锦昕", title: "信念型策略大师", 
             radius_factor: 0.9,
             avatar: "./images/cjx_head.png", image: "./images/cjx_body.jpg",
             scores: { Trust: 2.06, Emotion: 1.00, Morality: 2.45, Decision: 6.91, Social: 3.21, Risk: 2.87, Info: 2.48, Value: 5.41 },
-            desc: "...",
+            desc: "持续输出，策略谋划，你是心态的修炼者，是全力以赴的拼搏者。你的光芒，无需任何人定义。",
             mirror: { name: "林可雯", avatar: "./images/lkw_head.png" },
             partner: { name: "曾耀晖", avatar: "./images/zyh_head.png" }
         },
         {
-            name: "林可雯", title: "未命名头衔", 
+            name: "林可雯", title: "理性捕猎者", 
             avatar: "./images/lkw_head.png", image: "./images/lkw_body.jpg",
             scores: { Trust: 1.52, Emotion: 3.43, Morality: 1.00, Decision: 8.15, Social: 1.43, Risk: 7.01, Info: 4.26, Value: 9.00 },
-            desc: "...",
+            desc: "生于热烈之上，长于璀璨之下。自信的光芒越过重重山峦，纯爱战神、敢于挑战、步履不止，“善恶本由我自辩”。",
             mirror: { name: "蔡锦昕", avatar: "./images/cjx_head.png" },
             partner: { name: "庄宇光", avatar: "./images/zyg_head.png" }
         },
         {
-            name: "吴蕙岑", title: "未命名头衔", 
+            name: "吴蕙岑", title: "活力小太阳", 
             avatar: "./images/whc_head.png", image: "./images/whc_body.jpg",
             scores: { Trust: 8.41, Emotion: 5.55, Morality: 8.51, Decision: 1.23, Social: 9.00, Risk: 1.00, Info: 1.03, Value: 4.49 },
-            desc: "...",
+            desc: "世事如织，“蕙”心定局，真诚出击。你是紧张气氛的稳定剂，大局谋定的赞助商，永远拥有璨然的欢喜。",
             mirror: { name: "朱宸皓", avatar: "./images/zch_head.png" },
             partner: { name: "郑方一", avatar: "./images/zfy_head.png" }
         },
         {
-            name: "曾耀晖", title: "未命名头衔", 
+            name: "曾耀晖", title: "战局搅拌机", 
             avatar: "./images/zyh_head.png", image: "./images/zyh_body.jpg",
             radius_factor: 0.9,
             scores: { Trust: 3.33, Emotion: 3.21, Morality: 1.43, Decision: 1.00, Social: 6.35, Risk: 6.65, Info: 2.95, Value: 1.00 },
-            desc: "...",
+            desc: "勇敢果断，不惧战局之乱，逆风翻盘，突围好运常伴。你是当机立断、有“仇”必报的爽文男主，前路浩浩荡荡，万事尽可期待。",
             mirror: { name: "孙博文", avatar: "./images/sbw_head.png" },
             partner: { name: "林可雯", avatar: "./images/lkw_head.png" }
         },
         {
-            name: "孙博文", title: "未命名头衔", 
+            name: "孙博文", title: "谋略型谈判专家", 
             avatar: "./images/sbw_head.png", image: "./images/sbw_body.jpg",
             scores: { Trust: 7.27, Emotion: 4.44, Morality: 6.48, Decision: 2.09, Social: 5.06, Risk: 2.85, Info: 1.76, Value: 4.54 },
-            desc: "...",
+            desc: "博文强志，应变自如，你以友情为引路之光，于信任中探索奥秘。见招拆招，游刃有余，快乐游戏，一路高飞。",
             mirror: { name: "张慧鑫", avatar: "./images/zhx_head.png" },
             partner: { name: "林鹰谷", avatar: "./images/lyg_head.png" }
         },
         {
-            name: "郑方一", title: "未命名头衔", 
+            name: "郑方一", title: "滚烫的淡人", 
             avatar: "./images/zfy_head.png", image: "./images/zfy_body.jpg",
             radius_factor: 1.1,
             scores: { Trust: 6.98, Emotion: 7.58, Morality: 7.27, Decision: 7.85, Social: 5.26, Risk: 2.85, Info: 1.56, Value: 4.93 },
-            desc: "...",
+            desc: "怀揣超稳内核，操作易如反掌，你是游戏里的不倒翁，在不确定中突破局限，唤醒不同自我，创作无限翻盘可能。",
             mirror: { name: "林鹰谷", avatar: "./images/lyg_head.png" },
             partner: { name: "刘依悦", avatar: "./images/lyy_head.png" }
         },
         {
-            name: "马柏全", title: "未命名头衔", 
+            name: "马柏全", title: "黑马养成系", 
             avatar: "./images/mbq_head.png", image: "./images/mbq_body.jpg",
             scores: { Trust: 9.00, Emotion: 8.32, Morality: 8.00, Decision: 1.14, Social: 2.21, Risk: 1.00, Info: 1.00, Value: 3.05 },
-            desc: "...",
+            desc: "意气风发，尽力而为，用真心换真心，你是稳扎稳打的成长系玩家，积蓄力量，步步为营。",
             mirror: { name: "文艺宏", avatar: "./images/wyh_head.png" },
             partner: { name: "郑方一", avatar: "./images/zfy_head.png" }
         },
         {
-            name: "文艺宏", title: "未命名头衔", 
+            name: "文艺宏", title: "团宠气运子", 
             avatar: "./images/wyh_head.png", image: "./images/wyh_body.jpg",
             scores: { Trust: 8.02, Emotion: 8.22, Morality: 8.26, Decision: 2.34, Social: 2.21, Risk: 1.00, Info: 1.00, Value: 2.98 },
-            desc: "...",
+            desc: "怀抱满怀希望，敏锐判断，洞察人性，真诚是你的代名词，勇气是你蜕变的力量，永不停泊，不断突破。",
             mirror: { name: "马柏全", avatar: "./images/mbq_head.png" },
             partner: { name: "郑方一", avatar: "./images/zfy_head.png" }
         },
         {
-            name: "孟羽童", title: "未命名头衔", 
+            name: "孟羽童", title: "清醒突围者", 
             avatar: "./images/myt_head.png", image: "./images/myt_body.jpg",
             radius_factor: 1.3,
             scores: { Trust: 6.52, Emotion: 7.83, Morality: 5.78, Decision: 3.96, Social: 4.76, Risk: 4.10, Info: 3.14, Value: 6.02 },
-            desc: "...",
+            desc: "匠心布局，协作共赢，洞察人心，你是清醒谋划的突围者，自洽笃定，坚定主见，游戏人生，一切尽在掌握中。",
             mirror: { name: "欧阳东", avatar: "./images/oyd_head.png" },
             partner: { name: "李孝谦", avatar: "./images/lxq_head.png" }
         },
         {
-            name: "林鹰谷", title: "未命名头衔", 
+            name: "林鹰谷", title: "脑力大魔王", 
             avatar: "./images/lyg_head.png", image: "./images/lyg_body.jpg",
             scores: { Trust: 5.98, Emotion: 6.48, Morality: 5.23, Decision: 9.00, Social: 5.69, Risk: 5.00, Info: 4.12, Value: 6.59 },
-            desc: "...",
+            desc: "心灵相交，计算在线，你是行走的计算机，在合作中成长，搜集信息明局势，蛰伏战局破万难。",
             mirror: { name: "郑方一", avatar: "./images/zfy_head.png" },
             partner: { name: "孟羽童", avatar: "./images/myt_head.png" }
         },
         {
-            name: "欧阳东", title: "未命名头衔", 
+            name: "欧阳东", title: "正义审判员", 
             avatar: "./images/oyd_head.png", image: "./images/oyd_body.jpg",
             radius_factor: 1.2,
             scores: { Trust: 8.34, Emotion: 7.58, Morality: 7.59, Decision: 4.58, Social: 6.09, Risk: 6.35, Info: 3.68, Value: 5.12 },
-            desc: "...",
+            desc: "每一次抉择皆为深思熟虑，每一份理解皆似春风化雨，你立于他人之岸，世界便为你展开另一番景象。",
             mirror: { name: "孟羽童", avatar: "./images/myt_head.png" },
             partner: { name: "李孝谦", avatar: "./images/lxq_head.png" }
         },
         {
-            name: "朱宸皓", title: "未命名头衔", 
+            name: "朱宸皓", title: "快乐驾驶员", 
             avatar: "./images/zch_head.png", image: "./images/zch_body.jpg",
             scores: { Trust: 8.09, Emotion: 6.79, Morality: 7.97, Decision: 3.23, Social: 8.01, Risk: 3.16, Info: 2.01, Value: 3.15 },
-            desc: "...",
+            desc: "行成于思谋远路，观察沟通力超群。你是金牌辅助家，手捧坦率的真心，回望信任与默契，享受游戏，无需过滤掩饰与衡量。",
             mirror: { name: "张慧鑫", avatar: "./images/zhx_head.png" },
             partner: { name: "文艺宏", avatar: "./images/wyh_head.png" }
         },
         {
-            name: "叶筱玮", title: "未命名头衔", 
+            name: "叶筱玮", title: "乐天体验派", 
             avatar: "./images/yxw_head.png", image: "./images/yxw_body.jpg",
             scores: { Trust: 8.53, Emotion: 8.10, Morality: 8.23, Decision: 3.10, Social: 6.21, Risk: 5.98, Info: 1.78, Value: 1.00 },
-            desc: "...",
+            desc: "真诚至上，攻守有道，你是纯粹的探索者，存在于每一个当下，体验游戏的每一个瞬间，Keep chill~",
             mirror: { name: "张慧鑫", avatar: "./images/zhx_head.png" },
             partner: { name: "欧阳东", avatar: "./images/oyd_head.png" }
         },
         {
-            name: "张慧鑫", title: "未命名头衔", 
+            name: "张慧鑫", title: "抬价小能手", 
             avatar: "./images/zhx_head.png", image: "./images/zhx_body.jpg",
             scores: { Trust: 8.53, Emotion: 5.00, Morality: 8.00, Decision: 3.59, Social: 6.21, Risk: 5.00, Info: 1.68, Value: 2.03 },
-            desc: "...",
+            desc: "自然松弛，不偏不倚。迎接每一个挑战，于自在中感受游戏，千山万水为你而来。",
             mirror: { name: "朱宸皓", avatar: "./images/zch_head.png" },
             partner: { name: "叶筱玮", avatar: "./images/yxw_head.png" }
         },
         {
-            name: "李孝谦", title: "未命名头衔", 
+            name: "李孝谦", title: "真诚谈判官", 
             avatar: "./images/lxq_head.png", image: "./images/lxq_body.jpg",
             scores: { Trust: 5.73, Emotion: 7.63, Morality: 7.52, Decision: 5.62, Social: 7.21, Risk: 6.12, Info: 5.00, Value: 7.23 },
-            desc: "...",
+            desc: "谦谦君子，如切如磋，如琢如磨。你是真诚的谈判官，行于团队之舟，共济利益之海，贯彻游戏精神，引领成功方向。",
             mirror: { name: "欧阳东", avatar: "./images/oyd_head.png" },
             partner: { name: "孟羽童", avatar: "./images/myt_head.png" }
         }
         
         // {
-        //     name: "曲靖", title: "未命名头衔", 
+        //     name: "曲靖", title: "优长劣短青一曲", 
         //     radius_factor: 0.4,
         //     avatar: "./images/qj_head.jpg", image: "./images/qj_body.jpg",
         //     scores: { Trust: 2.00, Emotion: 9.00, Morality: 3.00, Decision: 5.00, Social: 4.00, Risk: 4.00, Info: 6.00, Value: 8.00 },
@@ -494,7 +555,7 @@
         // 渲染顶栏题号
         document.getElementById('quiz-count').innerText = `Q${currentQuestionIndex + 1} / ${questions.length}`;
         
-        // 动态变更游戏Label及其独特色调
+        // 动态变更游戏Label
         const stageLabel = document.getElementById('quiz-stage');
         stageLabel.innerText = q.stage;
         if (stageColors[q.stage]) {
@@ -544,23 +605,23 @@
         }
     }
 
-    // 终极对齐：纯中心化余弦相似度算法（解决大数坍缩，天然分流）
+    // 中心化余弦相似度算法
     function getCenteredCosineSimilarity(vecA, vecB) {
         const keys = ["Trust", "Emotion", "Morality", "Decision", "Social", "Risk", "Info", "Value"];
         
-        // 1. 计算均值
+        
         let sumA = 0, sumB = 0;
         keys.forEach(k => { sumA += vecA[k]; sumB += vecB[k]; });
         const meanA = sumA / keys.length;
         const meanB = sumB / keys.length;
 
-        // 2. 中心化并计算点积与模长
+       
         let dotProduct = 0;
         let normA = 0;
         let normB = 0;
 
         keys.forEach(k => {
-            let clrA = vecA[k] - meanA; // 扣除个体均值，提纯波形形状
+            let clrA = vecA[k] - meanA; 
             let clrB = vecB[k] - meanB;
             dotProduct += clrA * clrB;
             normA += clrA * clrA;
@@ -594,29 +655,26 @@
     }
 
     function calculateResult() {
-        // 1. 限制答题总分边界在 1~9 分之间
+        
         for (let key in userScores) {
             if (userScores[key] > 9.0) userScores[key] = 9.0;
             if (userScores[key] < 1.0) userScores[key] = 1.0;
         }
 
         // ==========================================
-        // 核心一：主选手匹配（融入中心化余弦 + 领地弹性参数）
+        // 主选手匹配
         // ==========================================
         let bestMatch = null;
         let maxAdjustedSim = -Infinity;
-        let allSims = []; // 存储所有选手的相似度，供后面计算镜像和搭子使用
+        let allSims = []; // 存储所有选手的相似度
 
         characters.forEach(char => {
-            // 计算用户和该选手的纯中心化余弦相似度 (范围在 -1 到 1 之间)
+            
             const rawSim = getCenteredCosineSimilarity(userScores, char.scores);
             
-            // 提取选手的弹性领地系数，默认不设为 1.0
-            // 想降低某个热门选手（如曾耀晖）的匹配比例，可在 characters 里给他设置 radius_factor: 0.7 
-            // 想拔高某个濒危选手（如欧阳东）的匹配比例，可设置 radius_factor: 1.5 
+           
             let factor = char.radius_factor || 1.0;
-            
-            // 【核心注入参数】进行领地范围加权
+       
             let adjustedSim = rawSim * factor;
 
             allSims.push({ char, rawSim: rawSim, adjustedSim: adjustedSim });
@@ -628,9 +686,8 @@
         });
 
         // ==========================================
-        // 核心二：寻找【你的镜像】（全场余弦相似度第二高的选手）
+        // 寻找【你的镜像】
         // ==========================================
-        // 过滤掉当前已经匹配上的主选手，并对剩余选手按纯相似度从大到小排序
         let mirrorCandidates = allSims.filter(item => item.char.name !== bestMatch.name);
         mirrorCandidates.sort((a, b) => b.rawSim - a.rawSim);
 
@@ -638,7 +695,7 @@
         let mirrorSimPercentage = ((mirrorCandidates[0].rawSim + 1) * 50).toFixed(1);
 
         // ==========================================
-        // 核心三：构建契合搭子（对齐 Python 互补模型矩阵推演）
+        // 构建契合搭子
         // ==========================================
         const keys = ["Trust", "Emotion", "Morality", "Decision", "Social", "Risk", "Info", "Value"];
         
@@ -646,7 +703,7 @@
         keys.forEach(k => userSum += userScores[k]);
         const userMean = userSum / keys.length;
 
-        // 构建用户中心化向量并翻转手段维度
+        
         let v_comp_theoretical = {};
         keys.forEach(k => { 
             v_comp_theoretical[k] = userScores[k] - userMean; 
@@ -659,7 +716,7 @@
         let maxPartnerSim = -2.0;
 
         characters.forEach(char => {
-            if (char.name === bestMatch.name) return; // 搭子不能是自己
+            if (char.name === bestMatch.name) return; // 不能是自己
 
             let charSum = 0;
             keys.forEach(k => charSum += char.scores[k]);
@@ -684,25 +741,23 @@
         if (!bestPartnerChar) bestPartnerChar = mirrorMatch;
         let partnerFitPercentage = ((maxPartnerSim + 1) * 50).toFixed(1);
 
-        // ==========================================
-        // 4. 将纯动态算出的数据完美渲染到前端页面
-        // ==========================================
+
         document.getElementById('quiz-page').classList.add('hidden');
         document.getElementById('result-page').classList.remove('hidden');
         
-        // 渲染主匹配选手
+
         document.getElementById('char-avatar').src = bestMatch.avatar; 
         document.getElementById('char-img').src = bestMatch.image;     
         document.getElementById('char-title').innerText = bestMatch.title; 
         document.getElementById('side-char-name').innerText = bestMatch.name; 
         document.getElementById('char-desc').innerText = bestMatch.desc;
 
-        // 渲染 [镜像] 选手
+
         document.getElementById('mirror-avatar').src = mirrorMatch.avatar;
         document.getElementById('mirror-name').innerText = mirrorMatch.name;
-        document.getElementById('mirror-rate').innerText = `光谱相似度 ${mirrorSimPercentage}%`;
+        document.getElementById('mirror-rate').innerText = `相似程度 ${mirrorSimPercentage}%`;
 
-        // 渲染 [搭子] 选手
+
         document.getElementById('partner-avatar').src = bestPartnerChar.avatar;
         document.getElementById('partner-name').innerText = bestPartnerChar.name;
         document.getElementById('partner-rate').innerText = `契合指数 ${partnerFitPercentage}%`;

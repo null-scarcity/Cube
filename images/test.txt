@@ -5,12 +5,12 @@
     // 如果发现某人比例太低（比如欧阳东、孙博文），就把他的 radius_factor 调大（如 1.8 或 2.5）
     const characters = [
         { name: "李佑川", radius_factor: 1.0, scores: { Trust: 1.00, Emotion: 9.00, Morality: 1.19, Decision: 3.84, Social: 1.00, Risk: 9.00, Info: 7.31, Value: 9.00 } },
-        { name: "庄宇光", radius_factor: 1.0, scores: { Trust: 1.84, Emotion: 8.54, Morality: 1.92, Decision: 2.54, Social: 4.29, Risk: 9.00, Info: 9.00, Value: 9.00 } },
+        { name: "庄宇光", radius_factor: 0.9, scores: { Trust: 1.84, Emotion: 8.54, Morality: 1.92, Decision: 2.54, Social: 4.29, Risk: 9.00, Info: 9.00, Value: 9.00 } },
         { name: "刘依悦", radius_factor: 1.3, scores: { Trust: 9.00, Emotion: 8.54, Morality: 9.00, Decision: 1.78, Social: 6.06, Risk: 1.22, Info: 1.00, Value: 3.05 } },
         { name: "蔡锦昕", radius_factor: 0.9, scores: { Trust: 2.06, Emotion: 1.00, Morality: 2.45, Decision: 6.91, Social: 3.21, Risk: 2.87, Info: 2.48, Value: 5.41 } },
         { name: "林可雯", radius_factor: 1.0, scores: { Trust: 1.52, Emotion: 3.43, Morality: 1.00, Decision: 8.15, Social: 1.43, Risk: 7.01, Info: 4.26, Value: 9.00 } },
         { name: "吴蕙岑", radius_factor: 1.0, scores: { Trust: 8.41, Emotion: 5.55, Morality: 8.51, Decision: 1.23, Social: 9.00, Risk: 1.00, Info: 1.03, Value: 4.49 } },
-        { name: "曾耀晖", radius_factor: 0.9, scores: { Trust: 3.33, Emotion: 3.21, Morality: 1.43, Decision: 1.00, Social: 6.35, Risk: 6.65, Info: 2.95, Value: 1.00 } },
+        { name: "曾耀晖", radius_factor: 0.8, scores: { Trust: 3.33, Emotion: 3.21, Morality: 1.43, Decision: 1.00, Social: 6.35, Risk: 6.65, Info: 2.95, Value: 1.00 } },
         { name: "孙博文", radius_factor: 1.0, scores: { Trust: 7.27, Emotion: 4.44, Morality: 6.48, Decision: 2.09, Social: 5.06, Risk: 2.85, Info: 1.76, Value: 4.54 } },
         { name: "郑方一", radius_factor: 1.1, scores: { Trust: 6.98, Emotion: 7.58, Morality: 7.27, Decision: 7.85, Social: 5.26, Risk: 2.85, Info: 1.56, Value: 4.93 } },
         { name: "马柏全", radius_factor: 1.0, scores: { Trust: 9.00, Emotion: 8.32, Morality: 8.00, Decision: 1.14, Social: 2.21, Risk: 1.00, Info: 1.00, Value: 3.05 } },
