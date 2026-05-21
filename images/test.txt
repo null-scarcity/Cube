@@ -1,8 +1,5 @@
 (function runFinalCosineMonteCarlo() {
-    // 1. 全量对齐 18 位选手档案
-    // 💡 调音台指南：
-    // 如果你在下方结果里发现某人比例偏高（比如曾耀晖、曲靖），就把他的 radius_factor 调小（如 0.65）
-    // 如果发现某人比例太低（比如欧阳东、孙博文），就把他的 radius_factor 调大（如 1.8 或 2.5）
+
     const characters = [
         { name: "李佑川", radius_factor: 1.0, scores: { Trust: 1.00, Emotion: 9.00, Morality: 1.19, Decision: 3.84, Social: 1.00, Risk: 9.00, Info: 7.31, Value: 9.00 } },
         { name: "庄宇光", radius_factor: 0.9, scores: { Trust: 1.84, Emotion: 8.54, Morality: 1.92, Decision: 2.54, Social: 4.29, Risk: 9.00, Info: 9.00, Value: 9.00 } },
@@ -25,7 +22,6 @@
         //{ name: "曲靖",   radius_factor: 0.4, scores: { Trust: 2.00, Emotion: 9.00, Morality: 3.00, Decision: 5.00, Social: 4.00, Risk: 4.00, Info: 6.00, Value: 8.00 } }
     ];
 
-    // 2. 完整对齐 18 道题目分值变动矩阵
     const questionScores = [
         [{ Emotion: -1.5, Value: -1.0 }, { Emotion: 1.5, Decision: 0.5 }, { Emotion: -1.0, Value: -1.0, Morality: -0.5 }],
         [{ Decision: -0.5, Risk: 1.0 }, { Risk: -1.5, Decision: 0.5 }, { Risk: -1.0, Decision: 0.5 }],
@@ -47,7 +43,7 @@
         [{ Social: 2.0 }, { Social: -2.0 }, { Social: -1.0 }]
     ];
 
-    // 核心算法：中心化余弦相似度
+
     function getCenteredCosine(vecA, vecB) {
         const keys = ["Trust", "Emotion", "Morality", "Decision", "Social", "Risk", "Info", "Value"];
         let sumA = 0, sumB = 0;
@@ -75,7 +71,7 @@
     for (let s = 0; s < totalSimulations; s++) {
         let userScores = { Trust: 5.0, Emotion: 5.0, Morality: 5.0, Decision: 5.0, Social: 5.0, Risk: 5.0, Info: 5.0, Value: 5.0 };
         
-        // 模拟用户等概率随机答题
+   
         questionScores.forEach(opts => {
             const randomIdx = Math.floor(Math.random() * opts.length);
             const delta = opts[randomIdx];
@@ -84,13 +80,13 @@
             }
         });
 
-        // 分数边界兜底
+
         for (let key in userScores) {
             if (userScores[key] > 9.0) userScores[key] = 9.0;
             if (userScores[key] < 1.0) userScores[key] = 1.0;
         }
 
-        // 匹配逻辑：计算带范围参数加权的最高得分
+
         let matchedName = "";
         let maxAdjustedSim = -Infinity;
 
@@ -98,7 +94,7 @@
             const rawSim = getCenteredCosine(userScores, char.scores);
             const factor = char.radius_factor || 1.0;
             
-            // 【核心控场参数】余弦相似度乘以领地权重系数
+            
             const adjustedSim = rawSim * factor;
 
             if (adjustedSim > maxAdjustedSim) {
@@ -110,7 +106,7 @@
         distribution[matchedName]++;
     }
 
-    // 生成调优结果列表
+
     let report = [];
     for (let name in distribution) {
         let count = distribution[name];
